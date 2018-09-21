@@ -5,8 +5,14 @@
 # Build worker image (VM template)
 image: Visual Studio 2015
 
+shallow_clone: true
+environment:
+  
 # Taken from https://github.com/Anaconda-Platform/anaconda-project/blob/master/appveyor.yml
 environment:
+  access_token:
+    secure: MOKf1yPctc6lmdYnPR9jo39Dfz+68ZvW5hwit5AbNpUdVzaLgZtMUbvT68dbcF4g
+  
   global:
     PYTHON_ARCH: "64" # needs to be set for CMD_IN_ENV to succeed. If a mix
                       # of 32 bit and 64 bit builds are needed, move this
@@ -48,7 +54,7 @@ install:
   - cmd: set PATH
   - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
   # Download and copy the pycoalescence recipe to the correct place
-  - cmd: git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+  - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
   - cmd: mkdir pycoalescence
   - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
   # This part is taken from the conda-forge appveyor.yml template
