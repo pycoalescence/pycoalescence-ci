@@ -5,15 +5,13 @@
 # Build worker image (VM template)
 image: Visual Studio 2015
 
-# scripts that are called at very beginning, before repo cloning
-init:
-  - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
-  - mkdir pycoalescence
-  - xcopy pycoalescence-feedstock\recipe pycoalescence
-
 
 # scripts that run after cloning repository
 install:
+  # Download and copy the pycoalescence recipe to the correct place
+  - cmd: git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+  - cmd: mkdir pycoalescence
+  - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
   # This part is taken from the conda-forge appveyor.yml template
   # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
   - cmd: rmdir C:\cygwin /s /q
