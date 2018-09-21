@@ -17,7 +17,6 @@ install:
   - cmd: rmdir C:\cygwin /s /q
 
   # Add path, activate `conda` and update conda.
-  - cmd: call %CONDA_INSTALL_LOCN%\Scripts\activate.bat
   - cmd: conda.exe update --yes --quiet conda
 
   - cmd: set PYTHONUNBUFFERED=1
