@@ -30,4 +30,10 @@ install:
   - cmd: conda.exe config --add channels defaults
   - cmd: conda.exe config --add channels conda-forge
   - cmd: conda.exe install conda-build
-  - cmd: conda-build 
+  - cmd: conda-build pycoalescence
+
+test:
+  # Run some basic tests to ensure it installs
+  - cmd: conda.exe install --use-local pycoalescence
+  - cmd: cd pycoalescence
+  - cmd: python.exe run_test.py
