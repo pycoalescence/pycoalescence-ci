@@ -23,7 +23,7 @@ platform:
 # scripts that run after cloning repository
 install:
   - cmd: if "%PYTHON_VERSION%" == "3.5" set "BASE_PYTHON_VERSION=35"
-. - cmd: if "%PYTHON_VERSION%" == "3.6" set "BASE_PYTHON_VERSION=3"
+  - cmd: if "%PYTHON_VERSION%" == "3.6" set "BASE_PYTHON_VERSION=3"
   - cmd: if "%PYTHON_ARCH%" == "64" set "ARCH_LABEL=-x64"
   # These are already installed on appveyor.  Update them.
   - cmd: set "CONDA_ROOT=C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
