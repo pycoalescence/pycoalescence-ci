@@ -36,7 +36,7 @@ platform:
 
 # scripts that run after cloning repository
 install:
-  - cmd: powershell .install.ps1
+  - cmd: powershell .\\install.ps1
   - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
   # - # cmd: if "%PYTHON_VERSION%" == "3.5" set "BASE_PYTHON_VERSION=35"
