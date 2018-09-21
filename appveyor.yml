@@ -43,6 +43,7 @@ platform:
 install:
   - cmd: powershell install.ps1
   - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
   # - # cmd: if "%PYTHON_VERSION%" == "3.5" set "BASE_PYTHON_VERSION=35"
 #   - cmd: if "%PYTHON_VERSION%" == "3.6" set "BASE_PYTHON_VERSION=3"
 #   - cmd: if "%PYTHON_ARCH%" == "64" set "ARCH_LABEL=-x64"
