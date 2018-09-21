@@ -48,10 +48,11 @@ install:
   # - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
   # These are already installed on appveyor.  Update them.
-  - cmd: set "CONDA_ROOT=C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
-  - cmd: set "PATH=%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
-  - cmd: set PATH
+  - cmd: set CONDA_ROOT="C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
+  - cmd: set PATH=""%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
   - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
+  - cmd: echo CONDA_ROOT %CONDA_ROOT%
+  - cmd: echo PATH %PATH%
   # Download and copy the pycoalescence recipe to the correct place
   - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
   - cmd: mkdir pycoalescence
