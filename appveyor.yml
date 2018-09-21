@@ -9,7 +9,7 @@ image: Visual Studio 2015
 init:
   - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
   - mkdir pycoalescence
-  - xcopy pycoalescence-feedstock\recipes pycoalescence
+  - xcopy pycoalescence-feedstock\recipe pycoalescence
 
 
 # scripts that run after cloning repository
