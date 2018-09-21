@@ -72,7 +72,7 @@ install:
   - cmd: conda config --add channels defaults
   - cmd: conda config --add channels conda-forge
   - cmd: conda install conda-build
-  - cmd: conda-build pycoalescence
+  - cmd: conda-build pycoalescence --no-test
 
 test_script:
   # Run some basic tests to ensure it installs

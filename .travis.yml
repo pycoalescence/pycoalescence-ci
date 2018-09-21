@@ -4,6 +4,8 @@ addons:
   homebrew:
     packages:
     - md5sha1sum
+  apt:
+    - conda
 
 install:
   - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
@@ -19,7 +21,7 @@ install:
   - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
   - mkdir pycoalescence
   - cp pycoalescence-feedstock/recipe/* pycoalescence
-  - conda-build -y pycoalescence
+  - conda-build -y pycoalescence --no-test
   - conda install -y --use-local pycoalescence
 
 script:
