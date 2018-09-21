@@ -1,0 +1,32 @@
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Visual Studio 2015
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+  - copy pycoalescence-feedstock\recipes\* pycoalescence
+
+
+# scripts that run after cloning repository
+install:
+  # This part is taken from the conda-forge appveyor.yml template
+  # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
+  - cmd: rmdir C:\cygwin /s /q
+
+  # Add path, activate `conda` and update conda.
+  - cmd: call %CONDA_INSTALL_LOCN%\Scripts\activate.bat
+  - cmd: conda.exe update --yes --quiet conda
+
+  - cmd: set PYTHONUNBUFFERED=1
+
+  # Add our channels.
+  - cmd: conda.exe config --set show_channel_urls true
+  - cmd: conda.exe config --remove channels defaults
+  - cmd: conda.exe config --add channels defaults
+  - cmd: conda.exe config --add channels conda-forge
+  - cmd: conda.exe install conda-build
+  - cmd: conda-build 
