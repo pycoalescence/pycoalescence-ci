@@ -8,6 +8,7 @@ image: Visual Studio 2015
 # scripts that are called at very beginning, before repo cloning
 init:
   - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+  - mkdir pycoalescence
   - copy pycoalescence-feedstock\recipes\* pycoalescence
 
 
