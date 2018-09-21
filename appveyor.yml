@@ -12,33 +12,55 @@ environment:
                       # of 32 bit and 64 bit builds are needed, move this
                       # to the matrix section.
   matrix:
-    - PYTHON_VERSION: "2.7"
-    - PYTHON_VERSION: "3.5"
-    - PYTHON_VERSION: "3.6"
+      - PYTHON: "C:\\Python27_32"
+        PYTHON_VERSION: "2.7"
+        PYTHON_ARCH: "32"
+        CONDA_PY: "27"
+        CONDA_NPY: "18"
+
+      - PYTHON: "C:\\Python27_64"
+        PYTHON_VERSION: "2.7"
+        PYTHON_ARCH: "64"
+        CONDA_PY: "27"
+        CONDA_NPY: "18"
+
+      - PYTHON: "C:\\Python34_32"
+        PYTHON_VERSION: "3.4"
+        PYTHON_ARCH: "32"
+        CONDA_PY: "34"
+        CONDA_NPY: "18"
+
+      - PYTHON: "C:\\Python34_64"
+        PYTHON_VERSION: "3.4"
+        PYTHON_ARCH: "64"
+        CONDA_PY: "34"
+        CONDA_NPY: "18"
 
 platform:
   -x64
 
 # scripts that run after cloning repository
 install:
-  - cmd: if "%PYTHON_VERSION%" == "3.5" set "BASE_PYTHON_VERSION=35"
-  - cmd: if "%PYTHON_VERSION%" == "3.6" set "BASE_PYTHON_VERSION=3"
-  - cmd: if "%PYTHON_ARCH%" == "64" set "ARCH_LABEL=-x64"
-  # These are already installed on appveyor.  Update them.
-  - cmd: set "CONDA_ROOT=C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
-  - cmd: set "PATH=%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
-  - cmd: set PATH
-  - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
-  # Download and copy the pycoalescence recipe to the correct place
-  - cmd: git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
-  - cmd: mkdir pycoalescence
-  - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
-  # This part is taken from the conda-forge appveyor.yml template
-  # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
-  - cmd: rmdir C:\cygwin /s /q
-
-  # Add path, activate `conda` and update conda.
-  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
+  - cmd: powershell .\\continuous-integration\\appveyor\\install.ps1
+  - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  # - # cmd: if "%PYTHON_VERSION%" == "3.5" set "BASE_PYTHON_VERSION=35"
+#   - cmd: if "%PYTHON_VERSION%" == "3.6" set "BASE_PYTHON_VERSION=3"
+#   - cmd: if "%PYTHON_ARCH%" == "64" set "ARCH_LABEL=-x64"
+#   # These are already installed on appveyor.  Update them.
+#   - cmd: set "CONDA_ROOT=C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
+#   - cmd: set "PATH=%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
+#   - cmd: set PATH
+#   - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
+#   # Download and copy the pycoalescence recipe to the correct place
+#   - cmd: git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+#   - cmd: mkdir pycoalescence
+#   - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
+#   # This part is taken from the conda-forge appveyor.yml template
+#   # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
+#   - cmd: rmdir C:\cygwin /s /q
+#
+#   # Add path, activate `conda` and update conda.
+#   - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
   - cmd: conda config --set always_yes yes --set changeps1 no
   - cmd: conda update --yes --quiet conda
 
