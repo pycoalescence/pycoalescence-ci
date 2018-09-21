@@ -32,7 +32,7 @@ install:
   - cmd: conda.exe install conda-build
   - cmd: conda-build pycoalescence
 
-test:
+test_script:
   # Run some basic tests to ensure it installs
   - cmd: conda.exe install --use-local pycoalescence
   - cmd: cd pycoalescence
