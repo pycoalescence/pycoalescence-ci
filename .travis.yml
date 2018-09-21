@@ -1,0 +1,18 @@
+os: osx
+
+addons:
+  homebrew:
+    packages:
+    - miniconda
+  
+install:
+  - conda install -y conda-build 
+  - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+  - mkdir pycoalescence
+  - cp pycoalescence-feedstock/recipe/* pycoalescence
+  - conda-build -y pycoalescence
+  - conda install -y --use-local pycoalescence
+
+script:
+  - cd pycoalescence
+  - python run_test.py
