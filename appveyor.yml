@@ -34,27 +34,27 @@ install:
   - cmd: git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
   - cmd: mkdir pycoalescence
   - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
-  # This part is taken from the conda.exe-forge appveyor.yml template
-  # Cywing's git breaks conda.exe-build. (See https://github.com/conda.exe-forge/conda.exe-smithy-feedstock/pull/2.)
+  # This part is taken from the conda-forge appveyor.yml template
+  # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
   - cmd: rmdir C:\cygwin /s /q
 
-  # Add path, activate `conda.exe` and update conda.exe.
+  # Add path, activate `conda` and update conda.
   - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
-  - cmd: conda.exe config --set always_yes yes --set changeps1 no
-  - cmd: conda.exe update --yes --quiet conda.exe
+  - cmd: conda config --set always_yes yes --set changeps1 no
+  - cmd: conda update --yes --quiet conda
 
   - cmd: set PYTHONUNBUFFERED=1
 
   # Add our channels.
-  - cmd: conda.exe config --set show_channel_urls true
-  - cmd: conda.exe config --remove channels defaults
-  - cmd: conda.exe config --add channels defaults
-  - cmd: conda.exe config --add channels conda.exe-forge
-  - cmd: conda.exe install conda.exe-build
-  - cmd: conda.exe-build pycoalescence
+  - cmd: conda config --set show_channel_urls true
+  - cmd: conda config --remove channels defaults
+  - cmd: conda config --add channels defaults
+  - cmd: conda config --add channels conda-forge
+  - cmd: conda install conda-build
+  - cmd: conda-build pycoalescence
 
 test_script:
   # Run some basic tests to ensure it installs
-  - cmd: conda.exe install --use-local pycoalescence
+  - cmd: conda install --use-local pycoalescence
   - cmd: cd pycoalescence
   - cmd: python.exe run_test.py
