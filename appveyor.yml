@@ -3,10 +3,8 @@
 #---------------------------------#
 
 # Build worker image (VM template)
-image:
-  - Miniconda2 4.5.11 x64 
-  - Miniconda3 4.2.12 x64
-  - Miniconda3 4.5.11 x64
+image: Visual Studio 2015
+
 
 shallow_clone: true
   
