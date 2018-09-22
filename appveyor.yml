@@ -3,7 +3,10 @@
 #---------------------------------#
 
 # Build worker image (VM template)
-image: Visual Studio 2015
+image:
+  - Miniconda2 4.5.11 x64 
+  - Miniconda3 4.2.12 x64
+  - Miniconda3 4.5.11 x64
 
 shallow_clone: true
   
@@ -20,7 +23,7 @@ environment:
 
       - PYTHON: "C:\\Python27_64"
         PYTHON_VERSION: "2.7"
-        BASE_PYTHON_VERSION: "2"
+        BASE_PYTHON_VERSION: ""
         PYTHON_ARCH: "64"
         CONDA_PY: "27"
         CONDA_NPY: "18"
@@ -53,6 +56,11 @@ install:
   - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
   - cmd: echo CONDA_ROOT %CONDA_ROOT%
   - cmd: echo PATH %PATH%
+  # Add path, activate `conda` and update conda.
+  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
+  - cmd: conda config --set always_yes yes --set changeps1 no
+  - cmd: conda update --yes --quiet conda
+  
   # Download and copy the pycoalescence recipe to the correct place
   - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
   - cmd: mkdir pycoalescence
@@ -60,11 +68,6 @@ install:
   # This part is taken from the conda-forge appveyor.yml template
   # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
   # - cmd: rmdir C:\cygwin /s /q
-
-  # Add path, activate `conda` and update conda.
-  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
-  - cmd: conda config --set always_yes yes --set changeps1 no
-  - cmd: conda update --yes --quiet conda
 
   - cmd: set PYTHONUNBUFFERED=1
 
