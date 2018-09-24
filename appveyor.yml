@@ -43,38 +43,41 @@ environment:
 platform:
   -x64
 
+# Custom build script
+build_script:
+    # - cmd: powershell .\\install.ps1  #
+    # - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
+    # These are already installed on appveyor.  Update them.
+    - cmd: set CONDA_ROOT="C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
+    - cmd: set PATH=""%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
+    - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
+    - cmd: echo CONDA_ROOT %CONDA_ROOT%
+    - cmd: echo PATH %PATH%
+    # Add path, activate `conda` and update conda.
+    - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
+    - cmd: conda config --set always_yes yes --set changeps1 no
+    - cmd: conda update --yes --quiet conda
+  
+    # Download and copy the pycoalescence recipe to the correct place
+    - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
+    - cmd: mkdir pycoalescence
+    - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
+    # This part is taken from the conda-forge appveyor.yml template
+    # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
+    # - cmd: rmdir C:\cygwin /s /q
+
+    - cmd: set PYTHONUNBUFFERED=1
+
+    # Add our channels.
+    - cmd: conda config --set show_channel_urls true
+    - cmd: conda config --remove channels defaults
+    - cmd: conda config --add channels defaults
+    - cmd: conda config --add channels conda-forge
+    - cmd: conda install conda-build
+
 # scripts that run after cloning repository
 install:
-  # - cmd: powershell .\\install.ps1  #
-  # - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-
-  # These are already installed on appveyor.  Update them.
-  - cmd: set CONDA_ROOT="C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
-  - cmd: set PATH=""%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
-  - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
-  - cmd: echo CONDA_ROOT %CONDA_ROOT%
-  - cmd: echo PATH %PATH%
-  # Add path, activate `conda` and update conda.
-  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
-  - cmd: conda config --set always_yes yes --set changeps1 no
-  - cmd: conda update --yes --quiet conda
-  
-  # Download and copy the pycoalescence recipe to the correct place
-  - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
-  - cmd: mkdir pycoalescence
-  - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
-  # This part is taken from the conda-forge appveyor.yml template
-  # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
-  # - cmd: rmdir C:\cygwin /s /q
-
-  - cmd: set PYTHONUNBUFFERED=1
-
-  # Add our channels.
-  - cmd: conda config --set show_channel_urls true
-  - cmd: conda config --remove channels defaults
-  - cmd: conda config --add channels defaults
-  - cmd: conda config --add channels conda-forge
-  - cmd: conda install conda-build
   - cmd: conda-build pycoalescence --no-test
 
 test_script:

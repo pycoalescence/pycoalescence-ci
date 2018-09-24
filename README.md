@@ -1,4 +1,4 @@
-##*pycoalescence* Continuous Integration
+## *pycoalescence* Continuous Integration
 
 *A staging ground for CI testing for the* [pycoalescence](https://pycoalescence.readthedocs.io) *package*. 
 
