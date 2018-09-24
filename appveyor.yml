@@ -71,6 +71,8 @@ build_script:
   - cmd: conda-build pycoalescence --no-test
 
 test_script:
+  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
+  - cmd: conda config --set always_yes yes --set changeps1 no
   # Run some basic tests to ensure it installs
   - cmd: conda install --use-local pycoalescence
   - cmd: cd pycoalescence
