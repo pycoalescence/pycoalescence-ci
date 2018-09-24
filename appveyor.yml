@@ -11,7 +11,7 @@ shallow_clone: true
 # Taken from https://github.com/Anaconda-Platform/anaconda-project/blob/master/appveyor.yml
 environment:
   access_token:
-    secure: MOKf1yPctc6lmdYnPR9jo39Dfz+68ZvW5hwit5AbNpUdVzaLgZtMUbvT68dbcF4g
+    secure: p9gL1bQlyiAs68znCLDraCQsp7LCjNsaSu52rRh2o+2tua8dEr9hv2v506X1zhXz
   
   global:
     PYTHON_ARCH: "64" # needs to be set for CMD_IN_ENV to succeed. If a mix
@@ -66,6 +66,8 @@ install:
 build_script:
   # Add path, activate `conda` and update conda.
   - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
+  - cmd: conda config --set always_yes yes --set changeps1 no
+  - cmd: conda update --yes --quiet conda
   - cmd: conda-build pycoalescence --no-test
 
 test_script:
