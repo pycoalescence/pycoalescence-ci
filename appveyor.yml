@@ -19,13 +19,6 @@ environment:
                       # to the matrix section.
   matrix:
 
-      - PYTHON: "C:\\Python27_64"
-        PYTHON_VERSION: "2.7"
-        BASE_PYTHON_VERSION: ""
-        PYTHON_ARCH: "64"
-        CONDA_PY: "27"
-        CONDA_NPY: "18"
-
       - PYTHON: "C:\\Python35_64"
         PYTHON_VERSION: "3.5"
         BASE_PYTHON_VERSION: "3"
