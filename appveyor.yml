@@ -39,6 +39,7 @@ install:
     - cmd: conda.exe config --remove channels defaults
     - cmd: conda.exe config --add channels defaults
     - cmd: conda.exe config --add channels conda-forge
+    - cmd: conda.exe install conda-build -y --quiet
 
 # Skip .NET project specific build phase.
 build: off
