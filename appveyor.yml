@@ -27,24 +27,23 @@ platform:
 install:
     # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
     - cmd: rmdir C:\cygwin /s /q
-
     # Add path, activate `conda` and update conda.
     - cmd: call %CONDA_INSTALL_LOCN%\Scripts\activate.bat
     - cmd: conda.exe update --yes --quiet conda
-
     - cmd: set PYTHONUNBUFFERED=1
-
     # Add our channels.
     - cmd: conda.exe config --set show_channel_urls true
     - cmd: conda.exe config --remove channels defaults
     - cmd: conda.exe config --add channels defaults
     - cmd: conda.exe config --add channels conda-forge
     - cmd: conda.exe install conda-build -y --quiet
+    # Download and copy the pycoalescence recipe to the correct place
+    - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
+    - cmd: mkdir pycoalescence
+    - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
 
 # Skip .NET project specific build phase.
 build: off
-
-
 
 test_script:
   # Build and install pycoalescence, then run the basic tests
