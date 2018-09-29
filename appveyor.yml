@@ -13,67 +13,41 @@ environment:
   access_token:
     secure: p9gL1bQlyiAs68znCLDraCQsp7LCjNsaSu52rRh2o+2tua8dEr9hv2v506X1zhXz
   
-  global:
-    PYTHON_ARCH: "64" # needs to be set for CMD_IN_ENV to succeed. If a mix
-                      # of 32 bit and 64 bit builds are needed, move this
-                      # to the matrix section.
   matrix:
+    - CONFIG: win_c_compilervs2015cxx_compilervs2015python3.5vc14
+      CONDA_INSTALL_LOCN: C:\Miniconda36-x64
 
-      - PYTHON: "C:\\Python35_64"
-        PYTHON_VERSION: "3.5"
-        BASE_PYTHON_VERSION: "3"
-        PYTHON_ARCH: "64"
-        CONDA_PY: "35"
-        CONDA_NPY: "18"
-      
-      - PYTHON: "C:\\Python36_64"
-        PYTHON_VERSION: "3.6"
-        BASE_PYTHON_VERSION: "3"
-        PYTHON_ARCH: "64"
-        CONDA_PY: "36"
-        CONDA_NPY: "18"
+    - CONFIG: win_c_compilervs2015cxx_compilervs2015python3.6vc14
+      CONDA_INSTALL_LOCN: C:\Miniconda36-x64
 
 platform:
   -x64
 
-# scripts that run after cloning repository
+# Install process derived from https://github.com/conda-forge/conda-forge-build-setup-feedstock/blob/master/appveyor.yml
 install:
-  # - cmd: powershell .\\install.ps1  #
-  # - cmd: "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
-  # These are already installed on appveyor.  Update them.
-  - cmd: set CONDA_ROOT="C:\Miniconda%BASE_PYTHON_VERSION%%ARCH_LABEL%"
-  - cmd: set PATH=""%CONDA_ROOT%;%CONDA_ROOT%\Scripts;%CONDA_ROOT%\Library\bin;%PATH%"
-  - cmd: echo CONDA_PREFIX %CONDA_PREFIX%
-  - cmd: echo CONDA_ROOT %CONDA_ROOT%
-  - cmd: echo PATH %PATH%
-  # Add path, activate `conda` and update conda.
-  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
-  - cmd: conda config --set always_yes yes --set changeps1 no
-  - cmd: conda update --yes --quiet conda
-  # Download and copy the pycoalescence recipe to the correct place
-  - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
-  - cmd: mkdir pycoalescence
-  - cmd: xcopy pycoalescence-feedstock\recipe pycoalescence
-  - cmd: set PYTHONUNBUFFERED=1
-  # Add our channels.
-  - cmd: conda config --set show_channel_urls true
-  - cmd: conda config --remove channels defaults
-  - cmd: conda config --add channels defaults
-  - cmd: conda config --add channels conda-forge
-  - cmd: conda install conda-build
+    # Cywing's git breaks conda-build. (See https://github.com/conda-forge/conda-smithy-feedstock/pull/2.)
+    - cmd: rmdir C:\cygwin /s /q
 
-# Custom build script
-build_script:
-  # Add path, activate `conda` and update conda.
-  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
-  - cmd: conda config --set always_yes yes --set changeps1 no
-  - cmd: conda update --yes --quiet conda
-  - cmd: conda-build pycoalescence --no-test
+    # Add path, activate `conda` and update conda.
+    - cmd: call %CONDA_INSTALL_LOCN%\Scripts\activate.bat
+    - cmd: conda.exe update --yes --quiet conda
+
+    - cmd: set PYTHONUNBUFFERED=1
+
+    # Add our channels.
+    - cmd: conda.exe config --set show_channel_urls true
+    - cmd: conda.exe config --remove channels defaults
+    - cmd: conda.exe config --add channels defaults
+    - cmd: conda.exe config --add channels conda-forge
+
+# Skip .NET project specific build phase.
+build: off
+
+
 
 test_script:
-  - cmd: "%CONDA_ROOT%\\Scripts\\activate root"
-  - cmd: conda config --set always_yes yes --set changeps1 no
-  # Run some basic tests to ensure it installs
-  - cmd: conda install --use-local pycoalescence
+  # Build and install pycoalescence, then run the basic tests
+  - cmd: conda.exe build pycoalescence -m .ci_support\%CONFIG%.yaml --quiet
+  - cmd: conda.exe install --use-local -y pycoalescence
   - cmd: cd pycoalescence
   - cmd: python.exe run_test.py
