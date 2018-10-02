@@ -1,57 +1,29 @@
 language: generic
 
 os: osx
-
-osx_image: xcode6.4
+osx_image: xcode9.4
 
 env:
   matrix:
-    - CONFIG=osx_python2.7
-    - CONFIG=osx_python3.5
-    - CONFIG=osx_python3.6
+    - PYTHON_VER=2.7
+    - PYTHON_VER=3.6
 
 before_install:
-    # Remove homebrew.
-    - |
-      echo ""
-      echo "Removing homebrew from Travis CI to avoid conflicts."
-      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall > ~/uninstall_homebrew
-      chmod +x ~/uninstall_homebrew
-      ~/uninstall_homebrew -fq
-      rm ~/uninstall_homebrew
+    - brew install gdal
+    - brew install cmake
+    - brew install boost
+    - brew install python==${PYTHON_VER}
 
 install:
-    # Install Miniconda.
-    - |
-      echo ""
-      echo "Installing a fresh version of Miniconda."
-      MINICONDA_URL="https://repo.continuum.io/miniconda"
-      MINICONDA_FILE="Miniconda3-latest-MacOSX-x86_64.sh"
-      curl -L -O "${MINICONDA_URL}/${MINICONDA_FILE}"
-      bash $MINICONDA_FILE -b
-
-    # Configure conda.
-    - |
-      echo ""
-      echo "Configuring conda."
-      source /Users/travis/miniconda3/bin/activate root
-
-      conda install --yes --quiet conda-forge::conda-forge-ci-setup=2
-      git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
-      mkdir pycoalescence
-      cp pycoalescence-feedstock/recipe/* pycoalescence
-      rm -rf pycoalescence-feedstock
-      setup_conda_rc ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
-      source run_conda_forge_build_setup
-      # compiler cleanup
-    - |
-      mangle_compiler ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
-
-
+    -
+      git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
+      cd pycoalescence/pycoalescence/lib
+      rm -rf necsim
+      git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
+      cd ../../../
 
 script:
-  - make_build_number ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
-  - conda build ./pycoalescence -m ./.ci_support/${CONFIG}.yaml --clobber-file ./.ci_support/clobber_${CONFIG}.yaml
-  - conda install --use-local -y pycoalescence
   - cd pycoalescence
-  - python run_test.py
+  - python setup.py install
+  - cd pycoalescence/tests
+  - python test_install.py --quick
