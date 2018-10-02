@@ -3,16 +3,16 @@ language: generic
 os: osx
 osx_image: xcode9.4
 
-env:
-  matrix:
-    - PYTHON_VER=2.7
-    - PYTHON_VER=3.6
+python:
+  - 2.7
+  - 3.6
 
-before_install:
-    - brew install gdal
-    - brew install cmake
-    - brew install boost
-    - brew install python==${PYTHON_VER}
+addons:
+  homebrew:
+    packages:
+    - gdal
+    - cmake
+    - boost
 
 install:
     -
