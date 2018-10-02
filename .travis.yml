@@ -50,6 +50,6 @@ install:
 script:
   - make_build_number ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
   - conda build ./pycoalescence -m ./.ci_support/${CONFIG}.yaml --clobber-file ./.ci_support/clobber_${CONFIG}.yaml
-  - conda install --use-local pycoalescence
+  - conda install --use-local -y pycoalescence
   - cd pycoalescence
   - python run_test.py
