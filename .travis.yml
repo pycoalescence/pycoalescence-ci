@@ -40,11 +40,16 @@ install:
       mkdir pycoalescence
       cp pycoalescence-feedstock/recipe/* pycoalescence
       rm -rf pycoalescence-feedstock
+      setup_conda_rc ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
+      # compiler cleanup
+    - |
+      mangle_compiler ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
+
 
 
 script:
-  # generate the build number clobber
-  - conda build pycoalescence -m ./.ci_support/${CONFIG}.yaml
+  - make_build_number ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
+  - conda build ./pycoalescence -m ./.ci_support/${CONFIG}.yaml --clobber-file ./.ci_support/clobber_${CONFIG}.yaml
   - conda install --use-local pycoalescence
   - cd pycoalescence
   - python run_test.py
