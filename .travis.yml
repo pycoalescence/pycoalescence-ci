@@ -41,6 +41,7 @@ install:
       cp pycoalescence-feedstock/recipe/* pycoalescence
       rm -rf pycoalescence-feedstock
       setup_conda_rc ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
+      source run_conda_forge_build_setup
       # compiler cleanup
     - |
       mangle_compiler ./ ./pycoalescence ./.ci_support/${CONFIG}.yaml
