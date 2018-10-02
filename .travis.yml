@@ -15,12 +15,11 @@ addons:
     - boost
 
 install:
-    -
-      git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
-      cd pycoalescence/pycoalescence/lib
-      rm -rf necsim
-      git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
-      cd ../../../
+    - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
+    - cd pycoalescence/pycoalescence/lib
+    - rm -rf necsim
+    - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
+    - cd ../../../
 
 script:
   - cd pycoalescence
