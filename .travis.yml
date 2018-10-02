@@ -1,7 +1,6 @@
 language: generic
 
 os: osx
-osx_image: xcode6.4
 
 env:
   matrix:
@@ -36,21 +35,19 @@ install:
       source /Users/travis/miniconda3/bin/activate root
 
       conda install --yes --quiet conda-forge::conda-forge-ci-setup=2
-      setup_conda_rc ./ ./recipe ./.ci_support/${CONFIG}.yaml
+      git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
+      mkdir pycoalescence
+      cp pycoalescence-feedstock/recipe/* pycoalescence
+      rm -r pycoalescence-feedstock
+      setup_conda_rc ./ pycoalescence ./.ci_support/${CONFIG}.yaml
 
       source run_conda_forge_build_setup
 
-    # compiler cleanup
-    - |
-      mangle_compiler ./ ./recipe ./.ci_support/${CONFIG}.yaml
 
 script:
   # generate the build number clobber
-  - make_build_number ./ ./recipe ./.ci_support/${CONFIG}.yaml
-  - git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
-  - mkdir pycoalescence
-  - cp pycoalescence-feedstock/recipe/* pycoalescence
-  - rm -r pycoalescence-feedstock
+  - make_build_number ./ pycoalescence ./.ci_support/${CONFIG}.yaml
+
   - conda build pycoalescence -m ./.ci_support/${CONFIG}.yaml --clobber-file ./.ci_support/clobber_${CONFIG}.yaml
   - cd pycoalescence
   - python run_test.py
