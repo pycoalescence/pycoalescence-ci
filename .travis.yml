@@ -38,7 +38,7 @@ install:
       git clone https://github.com/thompsonsed/pycoalescence-feedstock.git
       mkdir pycoalescence
       cp pycoalescence-feedstock/recipe/* pycoalescence
-      rm -r pycoalescence-feedstock
+      rm -rf pycoalescence-feedstock
       setup_conda_rc ./ pycoalescence ./.ci_support/${CONFIG}.yaml
 
       source run_conda_forge_build_setup
