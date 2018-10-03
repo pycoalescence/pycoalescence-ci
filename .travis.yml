@@ -13,6 +13,7 @@ addons:
     - gdal
     - cmake
     - boost
+    - valgrind
 
 install:
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
