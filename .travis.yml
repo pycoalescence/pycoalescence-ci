@@ -32,4 +32,4 @@ script:
   - cd pycoalescence
   - ${PYTHON} setup.py install
   - cd pycoalescence/tests
-  - ${PYTHON} test_install.py --quick
+  - ${PYTHON} test_install.py --quick -v
