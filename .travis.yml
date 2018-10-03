@@ -16,16 +16,16 @@ addons:
     - valgrind
 
 install:
+    - python -m virtualenv env
+    - source env/bin/activate
     - python -m pip install numpy scipy >=0.12.0
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence/pycoalescence/lib
     - rm -rf necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
     - cd ../../../
-    - python -m virtualenv env
 
 script:
-  - source env/bin/activate
   - cd pycoalescence
   - python setup.py install
   - cd ..
