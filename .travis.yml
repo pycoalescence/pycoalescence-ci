@@ -16,7 +16,7 @@ addons:
     - valgrind
 
 install:
-    - python -m pip install -y numpy scipy GDAL>=2.1
+    - python -m pip install numpy scipy GDAL>=2.1
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence/pycoalescence/lib
     - rm -rf necsim
