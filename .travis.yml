@@ -21,8 +21,10 @@ install:
     - rm -rf necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
     - cd ../../../
+    - python -m virtualenv env
 
 script:
+  - source env/bin/activate
   - cd pycoalescence
   - python setup.py install
   - valgrind --track-origins=yes python testing_script.py
