@@ -50,4 +50,12 @@ test_script:
   - cmd: conda.exe build pycoalescence -m .ci_support\%CONFIG%.yaml --quiet
   - cmd: conda.exe install --use-local -y pycoalescence
   - cmd: cd pycoalescence
+  # Run basic tests
   - cmd: python.exe run_test.py
+  # Pull the dev build of the package for running tests
+  - cmd: git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
+  - cmd: cd pycoalescence
+  - cmd: git checkout develop
+  - cmd: cd pycoalescence/tests
+  # Run full (short) tests
+  - cmd: python.exe test_install.py --quick --bypass_gdal_warp
