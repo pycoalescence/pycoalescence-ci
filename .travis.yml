@@ -26,5 +26,5 @@ script:
   - cd pycoalescence
   - python setup.py install
   - cd pycoalescence/tests
-  - valgrind python testing_script.py
+  - valgrind --track-origins=yes python testing_script.py
   - python test_install.py --quick -v
