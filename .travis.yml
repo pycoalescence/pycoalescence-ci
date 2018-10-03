@@ -25,4 +25,4 @@ script:
   - cd pycoalescence
   - python setup.py install
   - cd pycoalescence/tests
-  - python test_install.py --quick
+  - python test_install.py --quick -v
