@@ -6,9 +6,9 @@ osx_image: xcode9.4
 matrix:
   include:
   - name: "Python 2.7 Test"
-    PYTHON: "python2"
+    env: PYTHON=python2
   - name: "Python 3.6 Test"
-  PYTHON: "python3"
+    env: PYTHON=python3
 
 addons:
   homebrew:
