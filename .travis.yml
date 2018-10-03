@@ -27,6 +27,7 @@ script:
   - source env/bin/activate
   - cd pycoalescence
   - python setup.py install
-  - valgrind --track-origins=yes python testing_script.py
+  - cd ..
+  - valgrind --track-origins=yes --suppressions=valgrind-python.supp python -E -tt testing_script.py
   - cd pycoalescence/tests
   - python test_install.py --quick -v
