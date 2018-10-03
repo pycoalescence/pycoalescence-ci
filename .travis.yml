@@ -14,11 +14,12 @@ addons:
     - cmake
     - boost
     - valgrind
+    - numpy
+    - scipy
 
 install:
     - python -m virtualenv env
     - source env/bin/activate
-    - python -m pip install numpy scipy >=0.12.0
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence/pycoalescence/lib
     - rm -rf necsim
