@@ -3,7 +3,7 @@ import os
 
 from pycoalescence import DispersalSimulation
 
-base_dir = "pycoalescence/pycoalescence/tests"
+base_dir = "pycoalescence/tests"
 
 m = DispersalSimulation(logging_level=logging.CRITICAL)
 m.set_simulation_parameters(number_repeats=2, output_database=os.path.join(base_dir, "output/realdispersal9.db"),
