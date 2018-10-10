@@ -32,7 +32,7 @@ install:
     - cd ../../../
 
 script:
-  - cd pycoalescence
-  - ${PYTHON} setup.py install
-  - cd pycoalescence/tests
-  - ${PYTHON} test_install.py --quick --bypass_gdal_warp
+    - cd pycoalescence
+    - ${PYTHON} setup.py install
+    - cd pycoalescence/tests
+    - ${PYTHON} test_install.py --quick --bypass_gdal_warp
