@@ -16,6 +16,7 @@ addons:
     - gdal
     - cmake
     - boost
+    - tcl-tk
     - python
 
 install:
