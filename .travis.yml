@@ -18,6 +18,7 @@ addons:
     - boost
     - tcl-tk
     - python
+    - valgrind
 
 install:
     - ${PYTHON} -m pip install virtualenv
@@ -37,5 +38,5 @@ script:
     - cd pycoalescence
     - ${PYTHON} setup.py install
     - cd pycoalescence/tests
-    - ${PYTHON} test_install.py --quick --bypass_gdal_warp
+    - valgrind ${PYTHON} test_install.py --quick --bypass_gdal_warp
     - echo "tests complete"
