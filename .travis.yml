@@ -18,12 +18,13 @@ addons:
     - boost
     - tcl-tk
     - python
+    - numpy
 
 install:
     - ${PYTHON} -m pip install virtualenv
     - ${PYTHON} -m virtualenv env --system-site-packages
     - source env/bin/activate
-    - ${PYTHON} -m pip install numpy scipy matplotlib
+    - ${PYTHON} -m pip install scipy matplotlib
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence
     - git checkout develop
