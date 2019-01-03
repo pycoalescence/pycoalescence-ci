@@ -21,7 +21,7 @@ environment:
       CONDA_INSTALL_LOCN: C:\Miniconda36-x64
 
 platform:
-  -x64
+  - x64
 
 # Install process derived from https://github.com/conda-forge/conda-forge-build-setup-feedstock/blob/master/appveyor.yml
 install:
