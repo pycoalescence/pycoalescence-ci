@@ -17,7 +17,7 @@ addons:
     - cmake
     - boost
     - tcl-tk
-    - python
+    - ${python}
 
 install:
     - curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
