@@ -13,7 +13,7 @@ matrix:
 addons:
   homebrew:
     packages:
-    - gdal
+    - gdal2
     - cmake
     - boost
     - tcl-tk
