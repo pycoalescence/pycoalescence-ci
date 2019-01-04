@@ -40,5 +40,6 @@ script:
     - cd pycoalescence
     - ${PYTHON} setup.py install
     - cd pycoalescence/tests
+    - valgrind -v
     - valgrind ${PYTHON} test_install.py --quick --bypass_gdal_warp
     - echo "tests complete"
