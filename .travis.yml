@@ -1,7 +1,7 @@
 language: generic
 
 os: osx
-osx_image: xcode9.2
+osx_image: xcode9.4
 
 matrix:
   include:
@@ -20,9 +20,9 @@ addons:
     - ${python}
 
 install:
-    - curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
-    - source ./macports-ci install
-    - sudo port -N install valgrind-devel
+#    - curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
+#    - source ./macports-ci install
+#    - sudo port -N install valgrind-devel
     - ${PYTHON} -m pip install virtualenv
     - ${PYTHON} -m virtualenv env --system-site-packages
     - source env/bin/activate
@@ -40,6 +40,6 @@ script:
     - cd pycoalescence
     - ${PYTHON} setup.py install
     - cd pycoalescence/tests
-    - valgrind -v
-    - valgrind ${PYTHON} test_install.py --quick --bypass_gdal_warp
+#    - valgrind -v
+    - ${PYTHON} test_install.py --quick --bypass_gdal_warp
     - echo "tests complete"
