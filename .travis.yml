@@ -22,7 +22,7 @@ addons:
 install:
     - curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
     - source ./macports-ci install
-    - port install valgrind-devel
+    - sudo port -N install valgrind-devel
     - ${PYTHON} -m pip install virtualenv
     - ${PYTHON} -m virtualenv env --system-site-packages
     - source env/bin/activate
