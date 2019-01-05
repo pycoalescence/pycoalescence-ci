@@ -20,9 +20,6 @@ addons:
     - ${python}
 
 install:
-#    - curl -LO https://raw.githubusercontent.com/GiovanniBussi/macports-ci/master/macports-ci
-#    - source ./macports-ci install
-#    - sudo port -N install valgrind-devel
     - ${PYTHON} -m pip install virtualenv
     - ${PYTHON} -m virtualenv env --system-site-packages
     - source env/bin/activate
@@ -30,7 +27,7 @@ install:
     - ${PYTHON} -m pip install scipy matplotlib
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence
-    - git checkout develop
+    - git checkout hotfix # TODO change this to develop
     - cd pycoalescence/lib
     - rm -rf necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
@@ -40,6 +37,5 @@ script:
     - cd pycoalescence
     - ${PYTHON} setup.py install
     - cd pycoalescence/tests
-#    - valgrind -v
     - ${PYTHON} test_install.py --quick --bypass_gdal_warp
     - echo "tests complete"
