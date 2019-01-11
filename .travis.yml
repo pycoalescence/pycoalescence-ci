@@ -26,7 +26,7 @@ install:
     - ${PYTHON} -m pip install scipy matplotlib
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence
-    - git checkout hotfix # TODO change this to develop
+    - git checkout develop
     - cd pycoalescence/lib
     - rm -rf necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
