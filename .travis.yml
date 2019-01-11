@@ -23,7 +23,7 @@ install:
     - ${PYTHON} -m virtualenv env --system-site-packages
     - source env/bin/activate
     - ${PYTHON} -m pip install --upgrade --force-reinstall numpy
-    - ${PYTHON} -m pip install scipy matplotlib
+    - ${PYTHON} -m pip install scipy
     - if [ "${PYTHON}" == "python2" ]; then ${PYTHON} -m pip install mock; fi;
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence
