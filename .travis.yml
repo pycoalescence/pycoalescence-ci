@@ -37,5 +37,24 @@ script:
     - cd pycoalescence
     - ${PYTHON} setup.py install
     - cd pycoalescence/tests
-    - ${PYTHON} test_install.py --quick --bypass_gdal_warp
+    - export quick_test="True"
+    - export bypass_gdal_warp="True"
+    - $PYTHON} -m unittest test_coalescence_tree.py
+    - $PYTHON} -m unittest test_dispersal_simulation.py
+    - $PYTHON} -m unittest test_fragment_config.py
+    - $PYTHON} -m unittest test_fragments.py
+    - $PYTHON} -m unittest test_helper.py
+    - $PYTHON} -m unittest test_install.py
+    - $PYTHON} -m unittest test_landscape.py
+    - $PYTHON} -m unittest test_landscape_metrics.py
+    - $PYTHON} -m unittest test_map.py
+    - $PYTHON} -m unittest test_merger.py
+    - $PYTHON} -m unittest test_patched_landscape.py
+    - $PYTHON} -m unittest test_pause_resume.py
+    - $PYTHON} -m unittest test_simulation.py
+    - $PYTHON} -m unittest test_spatial_algorithms.py
+    - $PYTHON} -m unittest test_sqlite_connection.py
+    - $PYTHON} -m unittest test_system.py
+    - $PYTHON} -m unittest test_system_operations.py
+#    - ${PYTHON} test_install.py --quick --bypass_gdal_warp TODO consider reverting to this method
     - echo "tests complete"
