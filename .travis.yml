@@ -39,21 +39,22 @@ script:
     - cd pycoalescence/tests
     - export quick_test="True"
     - export bypass_gdal_warp="True"
-    - ${PYTHON} -m unittest test_coalescence_tree # problem appears to be here occasionally
-    - ${PYTHON} -m unittest test_dispersal_simulation
-    - ${PYTHON} -m unittest test_fragment_config
-    - ${PYTHON} -m unittest test_fragments
-    - ${PYTHON} -m unittest test_helper
-    - ${PYTHON} -m unittest test_landscape
-    - ${PYTHON} -m unittest test_landscape_metrics
-    - ${PYTHON} -m unittest test_map
-    - ${PYTHON} -m unittest test_merger
-    - ${PYTHON} -m unittest test_patched_landscape
-    - ${PYTHON} -m unittest test_pause_resume
-    - ${PYTHON} -m unittest test_simulation
-    - ${PYTHON} -m unittest test_spatial_algorithms
-    - ${PYTHON} -m unittest test_sqlite_connection
-    - ulimit -c unlimited && ${PYTHON} -m unittest test_system || (lldb -c `ls -t /cores/* | head -n1` --batch -o 'thread backtrace all' -o 'quit' && exit 1) # problem appears to be here
-    - ${PYTHON} -m unittest test_system_operations
+    - ${PYTHON} test_install.py --quick --bypass_gdal
+#    - ${PYTHON} -m unittest test_coalescence_tree # problem appears to be here occasionally # TODO clean up
+#    - ${PYTHON} -m unittest test_dispersal_simulation
+#    - ${PYTHON} -m unittest test_fragment_config
+#    - ${PYTHON} -m unittest test_fragments
+#    - ${PYTHON} -m unittest test_helper
+#    - ${PYTHON} -m unittest test_landscape
+#    - ${PYTHON} -m unittest test_landscape_metrics
+#    - ${PYTHON} -m unittest test_map
+#    - ${PYTHON} -m unittest test_merger
+#    - ${PYTHON} -m unittest test_patched_landscape
+#    - ${PYTHON} -m unittest test_pause_resume
+#    - ${PYTHON} -m unittest test_simulation
+#    - ${PYTHON} -m unittest test_spatial_algorithms
+#    - ${PYTHON} -m unittest test_sqlite_connection
+#    - ulimit -c unlimited && ${PYTHON} -m unittest test_system || (lldb -c `ls -t /cores/* | head -n1` --batch -o 'thread backtrace all' -o 'quit' && exit 1) # problem appears to be here
+#    - ${PYTHON} -m unittest test_system_operations
 #    - ${PYTHON} test_install.py --quick --bypass_gdal_warp # TODO consider reverting to this method
     - echo "tests complete"
