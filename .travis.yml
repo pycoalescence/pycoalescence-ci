@@ -39,5 +39,5 @@ script:
     - cd pycoalescence/tests
     - export quick_test="True"
     - export bypass_gdal_warp="True"
-    - ${PYTHON} test_install.py --quick --bypass_gdal
+    - ${PYTHON} test_install.py --quick --bypass_gdal_warp
     - echo "tests complete"
