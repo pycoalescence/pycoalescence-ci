@@ -24,10 +24,10 @@ install:
     - source env/bin/activate
     - ${PYTHON} -m pip install --upgrade --force-reinstall numpy
     - ${PYTHON} -m pip install scipy
-    - if [ "${PYTHON}" == "python2" ]; then ${PYTHON} -m pip install mock; fi;
+    - if [ "${PYTHON}" == "python2" ]; then ${PYTHON} -m pip install mock faulthandler; fi;
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence
-    - git checkout develop
+    - git checkout hotfix
     - cd pycoalescence/lib
     - rm -rf necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
