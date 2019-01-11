@@ -44,7 +44,6 @@ script:
     - ${PYTHON} -m unittest test_fragment_config
     - ${PYTHON} -m unittest test_fragments
     - ${PYTHON} -m unittest test_helper
-    - ${PYTHON} -m unittest test_install
     - ${PYTHON} -m unittest test_landscape
     - ${PYTHON} -m unittest test_landscape_metrics
     - ${PYTHON} -m unittest test_map
