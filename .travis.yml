@@ -39,7 +39,7 @@ script:
     - cd pycoalescence/tests
     - export quick_test="True"
     - export bypass_gdal_warp="True"
-    - ${PYTHON} -m unittest test_coalescence_tree
+    - ${PYTHON} -m unittest test_coalescence_tree # problem appears to be here occasionally
     - ${PYTHON} -m unittest test_dispersal_simulation
     - ${PYTHON} -m unittest test_fragment_config
     - ${PYTHON} -m unittest test_fragments
@@ -53,7 +53,7 @@ script:
     - ${PYTHON} -m unittest test_simulation
     - ${PYTHON} -m unittest test_spatial_algorithms
     - ${PYTHON} -m unittest test_sqlite_connection
-    - ${PYTHON} -m unittest test_system
+    - ${PYTHON} -m unittest test_system # problem appears to be here
     - ${PYTHON} -m unittest test_system_operations
 #    - ${PYTHON} test_install.py --quick --bypass_gdal_warp TODO consider reverting to this method
     - echo "tests complete"
