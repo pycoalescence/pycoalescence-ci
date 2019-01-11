@@ -53,7 +53,7 @@ script:
     - ${PYTHON} -m unittest test_simulation
     - ${PYTHON} -m unittest test_spatial_algorithms
     - ${PYTHON} -m unittest test_sqlite_connection
-    - ulimit -c unlimited && ${PYTHON} -m unittest test_sqlite_connection || (lldb -c `ls -t /cores/* | head -n1` --batch -o 'thread backtrace all' -o 'quit' && exit 1) # problem appears to be here
+    - ulimit -c unlimited && ${PYTHON} -m unittest test_system || (lldb -c `ls -t /cores/* | head -n1` --batch -o 'thread backtrace all' -o 'quit' && exit 1) # problem appears to be here
     - ${PYTHON} -m unittest test_system_operations
 #    - ${PYTHON} test_install.py --quick --bypass_gdal_warp TODO consider reverting to this method
     - echo "tests complete"
