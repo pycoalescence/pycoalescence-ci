@@ -3,6 +3,7 @@ language: generic
 os: osx
 osx_image: xcode9.4
 
+# Define 2 different builds for python 2 and python 3
 matrix:
   include:
   - name: "Python 2.7 Test"
@@ -19,12 +20,16 @@ addons:
     - tcl-tk
 
 install:
+    # Create and activate a virtual env
     - ${PYTHON} -m pip install virtualenv
     - ${PYTHON} -m virtualenv env --system-site-packages
     - source env/bin/activate
+    # Numpy requires special installation due to compilation issues
     - ${PYTHON} -m pip install --upgrade --force-reinstall numpy
     - ${PYTHON} -m pip install scipy
+    # Support for python 2 dependencies that need to be installed via pip
     - if [ "${PYTHON}" == "python2" ]; then ${PYTHON} -m pip install mock faulthandler configparser; fi;
+    # Pull the repos for pycoalescence and necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/pycoalescence.git
     - cd pycoalescence
     - git checkout hotfix
@@ -34,10 +39,12 @@ install:
     - cd ../../../
 
 script:
+    # Build the package
     - cd pycoalescence
     - ${PYTHON} setup.py install
+    # Run the tests using quick_test and bypass_gdal_warp for faster and simpler testing
+    # We only need to do a more basic test here.
     - cd pycoalescence/tests
     - export quick_test="True"
     - export bypass_gdal_warp="True"
     - ${PYTHON} test_install.py --quick --bypass_gdal_warp
-    - echo "tests complete"
