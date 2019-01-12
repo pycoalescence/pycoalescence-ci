@@ -47,7 +47,7 @@ build: off
 
 test_script:
   # Build and install pycoalescence, then run the basic tests
-  - cmd: conda.exe build pycoalescence -m .ci_support\%CONFIG%.yaml --quiet
+  - cmd: conda.exe build pycoalescence --quiet
   - cmd: conda.exe install --use-local -y pycoalescence
   - cmd: cd pycoalescence
   # Run basic tests
