@@ -36,7 +36,7 @@ install:
     - cmd: conda.exe config --remove channels defaults
     - cmd: conda.exe config --add channels defaults
     - cmd: conda.exe config --add channels conda-forge
-    - cmd: conda.exe install conda-build -y --quiet
+    - cmd: conda.exe install -n root -y --quiet -c conda-forge conda-build
     # Download and copy the pycoalescence recipe to the correct place
     - cmd: git clone https://$($env:access_token)@github.com/thompsonsed/pycoalescence-feedstock.git
     - cmd: mkdir pycoalescence
@@ -47,7 +47,7 @@ build: off
 
 test_script:
   # Build and install pycoalescence, then run the basic tests
-  - cmd: conda.exe build pycoalescence --quiet
+  - cmd: conda.exe build pycoalescence -m .ci_support\%CONFIG%.yaml --quiet
   - cmd: conda.exe install --use-local -y pycoalescence
   - cmd: cd pycoalescence
   # Run basic tests
