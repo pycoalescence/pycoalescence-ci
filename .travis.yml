@@ -44,6 +44,8 @@ script:
     - ${PYTHON} setup.py install
     # Run the tests using quick_test and bypass_gdal_warp for faster and simpler testing
     # We only need to do a more basic test here.
+    - echo %CONDA_PREFIX%
+    - echo %GDAL_DATA%
     - cd pycoalescence/tests
     - export quick_test="True"
     - export bypass_gdal_warp="True"
