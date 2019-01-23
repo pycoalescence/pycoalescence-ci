@@ -34,7 +34,6 @@ install:
     - cd pycoalescence
     - git checkout hotfix
     - cd pycoalescence/lib
-    - rm -rf necsim
     - git clone https://thompsonsed@bitbucket.org/thompsonsed/necsim.git
     - cd ../../../
 
