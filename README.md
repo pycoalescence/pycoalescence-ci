@@ -12,4 +12,5 @@
 [![PyPi (macOS)](https://img.shields.io/circleci/project/bitbucket/thompsonsed/pycoalescence.svg?label=Linux&logo=circleci)](https://circleci.com/bb/thompsonsed/pycoalescence)
 
 This repo is a staging ground for three separate CI processes for testing the conda/pip builds of pycoalescence on 
-different systems.
+different systems. This is in addition to the conda testing that occurs within the 
+[conda package](https://github.com/conda-forge/pycoalescence-feedstock).
